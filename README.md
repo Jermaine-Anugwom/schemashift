@@ -11,7 +11,7 @@ Operational CSV and JSON exports rarely agree on names, types, or required field
 
 ## The proof
 
-Alias-aware mapping, typed normalization, confidence, provenance, and a review queue.
+Alias-aware field mapping, whitespace normalization, source-key provenance, confidence, and explicit review reasons for missing or colliding aliases. It does not perform domain-specific type coercion.
 
 ## Why this is forward deployed
 
@@ -37,7 +37,7 @@ flowchart LR
 ```bash
 python3.12 -m venv .venv
 source .venv/bin/activate
-python -m pip install -e '.[dev]'
+python -m pip install -c constraints.txt -e '.[dev]'
 pytest -q
 schemashift
 ```

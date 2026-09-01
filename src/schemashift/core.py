@@ -20,16 +20,15 @@ class NormalizedRecord:
 
 
 def normalize(record: dict[str, Any]) -> NormalizedRecord:
-    lowered = {str(k).strip().lower(): v for k, v in record.items()}
+    entries = [(str(key).strip(), str(key).strip().lower(), value) for key, value in record.items()]
     values, provenance, reasons = {}, {}, []
     for canonical, aliases in ALIASES.items():
-        matches = [key for key in lowered if key in aliases]
+        matches = [entry for entry in entries if entry[1] in aliases]
         if len(matches) == 1:
-            key = matches[0]
-            value = lowered[key]
+            original_key, normalized_key, value = matches[0]
             if isinstance(value, str):
                 value = value.strip()
-            values[canonical], provenance[canonical] = value, key
+            values[canonical], provenance[canonical] = value, original_key or normalized_key
         elif not matches:
             reasons.append(f"missing:{canonical}")
         else:

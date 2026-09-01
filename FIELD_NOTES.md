@@ -21,7 +21,7 @@ Operational CSV and JSON exports rarely agree on names, types, or required field
 
 ## Success measure
 
-Alias-aware mapping, typed normalization, confidence, provenance, and a review queue.
+Alias-aware mapping, whitespace normalization, source-key provenance, confidence, and explicit collision or missing-field review reasons.
 
 ## Handoff
 

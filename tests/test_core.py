@@ -39,3 +39,11 @@ def test_unknown_fields_do_not_break():
         normalize({"id": "1", "created": "x", "type": "y", "notes": "z", "extra": 9}).confidence
         == 1.0
     )
+
+
+def test_case_colliding_aliases_are_ambiguous():
+    result = normalize(
+        {"Ticket": "A-1", "ticket": "A-2", "created": "x", "type": "y", "notes": "z"}
+    )
+    assert "ambiguous:case_id" in result.review_reasons
+    assert "case_id" not in result.values
